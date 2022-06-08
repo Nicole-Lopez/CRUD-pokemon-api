@@ -1,21 +1,45 @@
 const axios = require('axios');
 const { Type } = require('../db.js');
 
-const dataFromApi = async ()=>{
-	const dataApiTypes = await axios.get("https://pokeapi.co/api/v2/type")
-	return dataApiTypes.data.results;
-}
+const icons=[
+	'https://upload.wikimedia.org/wikipedia/commons/a/aa/Pok%C3%A9mon_Normal_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/b/be/Pok%C3%A9mon_Fighting_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/e/e0/Pok%C3%A9mon_Flying_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/c/c4/Pok%C3%A9mon_Poison_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/8/8d/Pok%C3%A9mon_Ground_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/b/bb/Pok%C3%A9mon_Rock_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/3/3c/Pok%C3%A9mon_Bug_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pok%C3%A9mon_Ghost_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/3/38/Pok%C3%A9mon_Steel_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/5/56/Pok%C3%A9mon_Fire_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/f/f6/Pok%C3%A9mon_Grass_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/a/a9/Pok%C3%A9mon_Electric_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/a/ab/Pok%C3%A9mon_Psychic_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/8/88/Pok%C3%A9mon_Ice_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/0/09/Pok%C3%A9mon_Dark_Type_Icon.svg',
+	'https://upload.wikimedia.org/wikipedia/commons/0/08/Pok%C3%A9mon_Fairy_Type_Icon.svg',
+]
 
 const getTypes = async (req, res, next)=>{
-	const apiTypes= await dataFromApi()
 
 	try {
-		let tableData = await Type.findAll();
+	const dataApiTypes = await axios.get("https://pokeapi.co/api/v2/type?limit=18")
+	
+	let lu= dataApiTypes.data.results.map((ty)=>ty.name);
 
-		if (!tableData.length) await Type.bulkCreate(apiTypes)
+    for (let i = 0; i < lu.length; i++) {
+        let [type, created] = await Type.findOrCreate({
+	        where: {
+	          name: lu[i],
+	          icon: icons[i]
+	        }
+        })
+    }
 
-		let total = await Type.findAll();
-		res.send(total)	
+	let total = await Type.findAll();
+	res.send(total)	
 
 	} catch (err) {
       next(err)

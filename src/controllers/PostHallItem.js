@@ -8,8 +8,6 @@ const createItemHall = async (req, res, next) => {
 	        title,
 	        image,      
 	    } = req.body
-        // const { name, resume, dietTypes, score, healthScore, time, dishTypes, steps, image } = req.body
-        // if(!name||!resume||!steps) return res.send(400)
         
         const poki = await Pokemon.findOne({ where: { name: pokemon } });
 
@@ -17,7 +15,6 @@ const createItemHall = async (req, res, next) => {
         const createdItem = await HallOfFame.create({
             title, image
         })
-
 
     	await poki.addHallOfFame(createdItem);
 	

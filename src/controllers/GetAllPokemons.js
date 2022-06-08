@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 
 const get40 = async () => { 
   try {
-    let urlApiGet = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=20'    
+    let urlApiGet = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=40'    
     let getPokesApi = await axios.get(urlApiGet)
     let pok50s =getPokesApi.data.results
     
@@ -22,7 +22,8 @@ const get40 = async () => {
             speed: pok.stats[5].base_stat,
             height: pok.height,
             weight: pok.weight,
-
+            experience: pok.base_experience,
+            original:true
           }
         })
 

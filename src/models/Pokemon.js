@@ -36,8 +36,13 @@ module.exports = (sequelize) => {
     weight: {
       type: DataTypes.INTEGER,
     },
-
-
+    experience: {
+      type: DataTypes.INTEGER,
+    },
+    original: {
+      type: DataTypes.BOOLEAN,
+      defaultValue:false
+    },
   },{ timestamps: false }
   );
 };
