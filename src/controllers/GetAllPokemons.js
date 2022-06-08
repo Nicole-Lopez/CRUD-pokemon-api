@@ -1,29 +1,20 @@
 const axios = require('axios');
 const { Type, Pokemon, pokemon_types } = require('../db.js');
-
-const capitalizeFirstLetter=(str) => str.charAt(0).toUpperCase() + str.slice(1);
-
+const { Op } = require("sequelize");
 
 const get40 = async () => { 
   try {
-    let urlOne = 'https://pokeapi.co/api/v2/pokemon'
-    let resOne = await axios.get(urlOne)
-    let first20Poks =resOne.data.results
-
-    let urlTwo = resOne.data.next
-    let resTwo = await axios.get(urlTwo)
-    let second20Poks = resTwo.data.results
-
-    let poks40= first20Poks.concat(second20Poks)
+    let urlApiGet = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=5'    
+    let getPokesApi = await axios.get(urlApiGet)
+    let pok50s =getPokesApi.data.results
     
-    let arr=[]
-    for (var i = 0; i < poks40.length; i++) {
-      let detail = await axios.get(poks40[i].url)
+    for (var i = 0; i < pok50s.length; i++) {
+      let detail = await axios.get(pok50s[i].url)
       let pok = detail.data
 
-        let pokemon={
-            name: capitalizeFirstLetter(pok.name),
-            ide: pok.id,
+        let [poke, created] = await Pokemon.findOrCreate({
+          where: {
+            name: pok.name,
             img: pok.sprites.other.dream_world.front_default,
             hp: pok.stats[0].base_stat,
             attack: pok.stats[1].base_stat,
@@ -31,13 +22,18 @@ const get40 = async () => {
             speed: pok.stats[5].base_stat,
             height: pok.height,
             weight: pok.weight,
-            fromApi: true,
-            types: pok.types.map(types => types.type.name),
-        }
-        
-      arr.push(pokemon)
+
+          }
+        })
+
+        let typeDb = await Type.findAll({
+            where:{
+                name: pok.types.map(types => types.type.name)
+            }
+        })
+
+        await poke.addType(typeDb)
     }
-    return arr
 
   }catch(err){
     console.log(err)
@@ -46,42 +42,53 @@ const get40 = async () => {
 
 
 
-const getDB= async ()=>{
+
+const getAllPokemons= async ()=>{
+
+  await get40()
+
   let pokesDB = await Pokemon.findAll({
     include: {
       model: Type,
       atributes: ['name'],
+      through: {
+        attributes: [],
+      },      
     },
   });
 
-  let pokesDetail = pokesDB.map((e) => {
-    return { 
-      ...e.dataValues, 
-      name:e.name,
-      types: e.dataValues.types.map((tip) => tip.dataValues.name) 
-    }
-  });
-
-  return pokesDetail
-}
-
-const getAllPokemons= async ()=>{
-  let api = await get40()
-  let db = await getDB()
-
-  return (!db)? api : api.concat(db)
+  return pokesDB
 }
 
 
 
 
 const getbyName= async (namePok)=>{
-  let all= await getAllPokemons()
-
-  let filtro=all.find((p)=>p.name.toLowerCase()==namePok.toLowerCase())
-  
-  return (filtro!==undefined) ? [filtro]: 'This pokemon was not found'
      
+  try{
+      let results = await Pokemon.findAll({
+        where: { 
+          name: { 
+            [Op.iLike]: `%${namePok}%` 
+          } 
+        },
+        include: [
+          {
+            model: Type,
+            attributes: ["name"],
+            through: {
+              attributes: [],
+            },
+          },
+
+        ],
+      });
+
+      return (!results.length) ? 'This pokemon was not found' : results    
+
+  }catch(err){
+    console.log(err)
+  }
 }
 
 
@@ -91,11 +98,8 @@ const getPo = async (req, res, next)=>{
   try {
     if (name) {
       let rta= await getbyName(name)
-      if (rta == 'This pokemon was not found') {
-        return res.status(404).json({ msg: rta});
-      } else{
-        return res.status(200).json(rta)
-      }
+      return (rta == 'This pokemon was not found') ?res.status(404).json({ msg: rta}): res.status(200).json(rta)
+      
 
 
     } else {

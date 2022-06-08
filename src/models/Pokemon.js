@@ -11,10 +11,6 @@ module.exports = (sequelize) => {
       unique:true,
       primaryKey: true
     },    
-    ide:{
-      type:DataTypes.INTEGER,
-
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,11 +37,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
     },
 
-	  fromApi: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    },
+
   },{ timestamps: false }
   );
 };

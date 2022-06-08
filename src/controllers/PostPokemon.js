@@ -2,20 +2,7 @@ const axios = require('axios');
 const { Type, Pokemon, pokemon_types } = require('../db.js');
 const { getAllPokemons } = require('../controllers/GetAllPokemons');
 
-
-let count
-
-const getLastArrItem = (arr) => { 
-  	let lastItem=arr[arr.length-1];  
-  	count=lastItem 
-}   
-
 const createPoke = async (req, res, next) => {
-
-	let num= await getAllPokemons()
-	let iden= num.map((e)=>e.ide)
-	getLastArrItem(iden)
-
     let  {
         name,
         tipos,
@@ -27,26 +14,35 @@ const createPoke = async (req, res, next) => {
         defense,
         speed,
     } = req.body
- 
-	let pokeCreated = await Pokemon.create({
-	    name,
-	    weight,
-	    height,
-	    hp,
-	    img,
-	    attack,
-	    defense,
-	    speed,
-	    ide:count+1
-	})
 
-	let typeDb = await Type.findAll({
-	    where:{
-	        name: tipos
-	    }
-	})
-	
-	return (pokeCreated.addType(typeDb))?res.status(200).send('Successful creation'): res.status(404).send('Failed creation')
+	const project = await Pokemon.findOne({ where: { name: name } });
+	if (project === null) {
+	  	console.log('Not found!');
+	    let [pokeCreated, created] = await Pokemon.findOrCreate({
+	      where: {
+		    name,
+		    weight,
+		    height,
+		    hp,
+		    img,
+		    attack,
+		    defense,
+		    speed,
+	      }
+	    })
+
+		let typeDb = await Type.findAll({
+		    where:{
+		        name: tipos
+		    }
+		})
+		// await pokeCreated.addType(typeDb)
+		// return res.status(200).send('Successful creation')
+		return (pokeCreated.addType(typeDb))?res.status(200).send('Successful creation'): res.status(404).send('Failed creation')
+
+	} else {	  
+		res.status(404).send('ya existe un pokemon con ese nombre')
+	}
 }
 
 
