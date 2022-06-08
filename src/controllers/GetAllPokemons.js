@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Type, Pokemon, pokemon_types } = require('../db.js');
 const { Op } = require("sequelize");
 
-const get40 = async () => { 
+const get500 = async () => { 
   try {
     let urlApiGet = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=40'    
     let getPokesApi = await axios.get(urlApiGet)
@@ -46,7 +46,7 @@ const get40 = async () => {
 
 const getAllPokemons= async ()=>{
 
-  await get40()
+  await get500()
 
   let pokesDB = await Pokemon.findAll({
     include: {
@@ -116,6 +116,6 @@ const getPo = async (req, res, next)=>{
 
 module.exports = {
     getPo,
-    get40,
+    get500,
     getAllPokemons
 }
