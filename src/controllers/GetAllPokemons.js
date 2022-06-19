@@ -76,7 +76,6 @@ const getbyName= async (namePok)=>{
         include: [
           {
             model: Type,
-            attributes: ["name"],
             through: {
               attributes: [],
             },
