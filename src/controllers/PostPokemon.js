@@ -5,6 +5,7 @@ const { getAllPokemons } = require('../controllers/GetAllPokemons');
 const createPoke = async (req, res, next) => {
     let  {
         name,
+        experience,
         tipos,
         height,
         img,
@@ -16,20 +17,21 @@ const createPoke = async (req, res, next) => {
     } = req.body
 
 	const project = await Pokemon.findOne({ where: { name: name } });
+
 	if (project === null) {
 	  	console.log('Not found!');
-	    let [pokeCreated, created] = await Pokemon.findOrCreate({
-	      where: {
-		    name,
-		    weight,
-		    height,
-		    hp,
-		    img,
-		    attack,
-		    defense,
-		    speed,
-	      }
+	    let pokeCreated =await Pokemon.create({
+	        name,
+	        experience,
+	        height,
+	        img,
+	        weight,
+	        hp,
+	        attack,
+	        defense,
+	        speed,
 	    })
+
 
 		let typeDb = await Type.findAll({
 		    where:{
@@ -41,7 +43,7 @@ const createPoke = async (req, res, next) => {
 		return (pokeCreated.addType(typeDb))?res.status(200).send('Successful creation'): res.status(404).send('Failed creation')
 
 	} else {	  
-		res.status(404).send('ya existe un pokemon con ese nombre')
+		res.status(404).send('There is already a pokemon with that name')
 	}
 }
 
