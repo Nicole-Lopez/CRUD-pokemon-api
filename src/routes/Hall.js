@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { getItemHall } = require('../controllers/GetHallItem');
 const { createItemHall } = require('../controllers/PostHallItem');
+const { deleteItemHall } = require('../controllers/DeleteHallItem');
 
-router.post('/', createItemHall)
+router.get('/:pokemonName', getItemHall);
+router.post('/:pokemonName', createItemHall);
+router.delete('/', deleteItemHall);
 
 module.exports = router;

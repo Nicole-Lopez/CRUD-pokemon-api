@@ -1,4 +1,4 @@
-const { Type, Pokemon, pokemon_types } = require('../db.js');
+const { Type, Pokemon, HallOfFame, pokemon_types } = require('../db.js');
 
 const deletePoke = async (req, res, next) => {
   const { name } = req.params;
@@ -7,7 +7,11 @@ const deletePoke = async (req, res, next) => {
     const pokemonToDelete = await Pokemon.findOne({ where: { name: name } });
 
     if (pokemonToDelete.original === false) {
-	    pokemonToDelete.destroy();
+
+      await HallOfFame.destroy({ where: { pokemonId: pokemonToDelete.id } });
+
+	    await pokemonToDelete.destroy();
+
 	    res.status(200).send("Pokemon deleted from DB!");
 
     } else {

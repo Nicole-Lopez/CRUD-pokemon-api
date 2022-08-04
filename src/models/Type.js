@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     icon: {
-      type: DataTypes.STRING(5000),
+      type: DataTypes.STRING(3000),
       allowNull: true,
     },
   },{ timestamps: false });

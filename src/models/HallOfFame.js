@@ -11,11 +11,11 @@ module.exports = (sequelize) => {
       primaryKey: true
     },    
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(500),
       allowNull: false,
     },
     image: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(3000),
       allowNull:true
     }
   },{ timestamps: false });

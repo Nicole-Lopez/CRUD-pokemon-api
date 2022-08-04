@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Type, Pokemon, pokemon_types } = require('../db.js');
+const { Type, Pokemon, pokemon_types, HallOfFame } = require('../db.js');
 const { Op } = require("sequelize");
 
 const get500 = async () => { 
@@ -49,13 +49,18 @@ const getAllPokemons= async ()=>{
   await get500()
 
   let pokesDB = await Pokemon.findAll({
-    include: {
-      model: Type,
-      atributes: ['name'],
-      through: {
-        attributes: [],
-      },      
-    },
+    include: [
+      {
+        model: Type,
+        atributes: ['name'],
+        through: {
+          attributes: [],
+        },      
+      },{
+        model: HallOfFame,
+        atributes: ['title', 'image']
+      }
+    ]
   });
 
   return pokesDB
@@ -78,9 +83,11 @@ const getbyName= async (namePok)=>{
             model: Type,
             through: {
               attributes: [],
-            },
-          },
-
+            }
+          },{
+            model: HallOfFame,
+            atributes: ['title', 'image']
+          }
         ],
       });
 
@@ -100,8 +107,6 @@ const getPo = async (req, res, next)=>{
       let rta= await getbyName(name)
       return (rta == 'This pokemon was not found') ?res.status(404).json({ msg: rta}): res.status(200).json(rta)
       
-
-
     } else {
       res.status(200).send(await getAllPokemons())
     }

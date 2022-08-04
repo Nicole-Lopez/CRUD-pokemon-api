@@ -1,16 +1,14 @@
-const axios = require('axios');
 const { Type, Pokemon, HallOfFame, pokemon_types } = require('../db.js');
 
 const createItemHall = async (req, res, next) => {
-    try {
-	    let  {
-	    	pokemon,
-	        title,
-	        image,      
-	    } = req.body
-        
-        const poki = await Pokemon.findOne({ where: { name: pokemon } });
+    const { pokemonName } = req.params;
+    let  {
+        title,
+        image,      
+    } = req.body
 
+    try {
+        const poki = await Pokemon.findOne({ where: { name: pokemonName } });
 
         const createdItem = await HallOfFame.create({
             title, image
@@ -24,8 +22,6 @@ const createItemHall = async (req, res, next) => {
         next(error)
     };
 }
-
-
 
 module.exports = {
     createItemHall
