@@ -19,25 +19,25 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(3000),
     },
     hp: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     attack: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     defense: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     speed: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     height: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     weight: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     experience: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     original: {
       type: DataTypes.BOOLEAN,
