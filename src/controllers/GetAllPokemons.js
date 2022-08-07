@@ -72,7 +72,7 @@ const getAllPokemons= async ()=>{
 const getbyName= async (namePok)=>{
      
   try{
-      let results = await Pokemon.findOne({
+      let results = await Pokemon.findAll({
         where: { name: namePok },
         include: [
           {
