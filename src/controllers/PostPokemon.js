@@ -1,12 +1,11 @@
 const axios = require('axios');
 const { Type, Pokemon, pokemon_types } = require('../db.js');
-const { getAllPokemons } = require('../controllers/GetAllPokemons');
 
 const createPoke = async (req, res, next) => {
     let  {
         name,
         experience,
-        tipos,
+        types,
         height,
         img,
         weight,
@@ -16,9 +15,11 @@ const createPoke = async (req, res, next) => {
         speed,
     } = req.body
 
-	const project = await Pokemon.findOne({ where: { name: name } });
+	const pokExist = await Pokemon.findOne({ where: { name: name } });
 
-	if (project === null) {
+	if (pokExist) {
+		res.status(404).send('There is already a pokemon with that name')
+	} else {
 	  	console.log('Not found!');
 	    let pokeCreated =await Pokemon.create({
 	        name,
@@ -32,22 +33,14 @@ const createPoke = async (req, res, next) => {
 	        speed,
 	    })
 
-
 		let typeDb = await Type.findAll({
 		    where:{
-		        name: tipos
+		        name: types
 		    }
 		})
-		// await pokeCreated.addType(typeDb)
-		// return res.status(200).send('Successful creation')
 		return (pokeCreated.addType(typeDb))?res.status(200).send('Successful creation'): res.status(404).send('Failed creation')
-
-	} else {	  
-		res.status(404).send('There is already a pokemon with that name')
 	}
 }
-
-
 
 module.exports = {
     createPoke

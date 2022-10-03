@@ -6,22 +6,19 @@ const deletePoke = async (req, res, next) => {
   try {
     const pokemonToDelete = await Pokemon.findOne({ where: { name: name } });
 
-    if (pokemonToDelete.original === false) {
-
-      await HallOfFame.destroy({ where: { pokemonId: pokemonToDelete.id } });
-
-	    await pokemonToDelete.destroy();
-
-	    res.status(200).send("Pokemon deleted from DB!");
-
+    if (pokemonToDelete.original) {
+      res.status(400).send("This pokemon is original, you can't delete it");
+    
     } else {
-	    res.status(400).send("This pokemon is original, you can't delete it");
+      await HallOfFame.destroy({ where: { pokemonId: pokemonToDelete.id } });
+      await pokemonToDelete.destroy();
+
+      res.status(200).send("Pokemon deleted from DB!");
     }
 
   } catch (error) {
     next(error);
   }
-
 }
 
 module.exports = {
