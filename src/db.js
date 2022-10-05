@@ -3,12 +3,36 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  PGUSER, PGPASSWORD, PGHOST, PGDATABASE, DATABASE_URL
+  PGUSER, PGPASSWORD, PGHOST, PGDATABASE
 } = process.env;
 
 
-let sequelize = new Sequelize(
-        DATABASE_URL,
+let sequelize =
+  process.env.NODE_ENV === "production"
+    ? new Sequelize({
+        database: PGDATABASE,
+        dialect: "postgres",
+        host: PGHOST,
+        port: 5432,
+        username: PGUSER,
+        password: PGPASSWORD,
+        pool: {
+          max: 3,
+          min: 1,
+          idle: 10000,
+        },
+        dialectOptions: {
+          ssl: {
+            require: true,
+            // Ref.: https://github.com/brianc/node-postgres/issues/2009
+            rejectUnauthorized: false,
+          },
+          keepAlive: true,
+        },
+        ssl: true,
+      })
+    : new Sequelize(
+        process.env.DATABASE_URL,
         { logging: false, native: false }
       );
 
@@ -28,13 +52,10 @@ fs.readdirSync(path.join(__dirname, '/models'))
   });
 
 // Injectamos la conexion (sequelize) a todos los modelos
-modelDefiners.forEach((model) => model(sequelize));
+modelDefiners.forEach(model => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [
-  entry[0][0].toUpperCase() + entry[0].slice(1),
-  entry[1],
-]);
+let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
