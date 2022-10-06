@@ -13,23 +13,23 @@ let sequelize =
         database: PGDATABASE,
         dialect: "postgres",
         host: PGHOST,
-        port: process.env.PORT,
+        port: 5432,
         username: PGUSER,
         password: PGPASSWORD,
-        pool: {
-          max: 3,
-          min: 1,
-          idle: 10000,
-        },
-        dialectOptions: {
-          ssl: {
-            require: true,
-            // Ref.: https://github.com/brianc/node-postgres/issues/2009
-            rejectUnauthorized: false,
-          },
-          keepAlive: true,
-        },
-        ssl: true,
+        // pool: {
+        //   max: 3,
+        //   min: 1,
+        //   idle: 10000,
+        // },
+        // dialectOptions: {
+        //   ssl: {
+        //     require: true,
+        //     // Ref.: https://github.com/brianc/node-postgres/issues/2009
+        //     rejectUnauthorized: false,
+        //   },
+        //   keepAlive: true,
+        // },
+        // ssl: true,
       })
     : new Sequelize(
         process.env.DATABASE_URL,
