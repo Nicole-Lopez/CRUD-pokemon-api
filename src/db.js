@@ -39,6 +39,13 @@ const {
 const sequelize = new Sequelize(
   DATABASE_URL,
   {
+    database: PGDATABASE,
+    dialect: "postgres",
+    host: PGHOST,
+    port: 5432,
+    username: PGUSER,
+    password: PGPASSWORD},  
+  {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
     dialectOptions:
