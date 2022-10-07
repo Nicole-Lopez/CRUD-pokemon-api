@@ -19,7 +19,6 @@ const updatePoke = async (req, res, next) => {
     let updatedPokemon = await Pokemon.findOne({ where: { name: nameP } });
 
     if (updatedPokemon.original === false) {
-      console.log(updatedPokemon)
       await updatedPokemon.update({
         name,
         experience,
