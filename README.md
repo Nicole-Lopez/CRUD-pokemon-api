@@ -92,7 +92,7 @@ The name must be complete. It is not case sensitive, "piKaCHu" will not work.\
 ```
 | Data name | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `name`      | `string` | **Required**. Pokémon name. |
+| `name`      | `string` | **Required**. Pokémon name. Up to 10 characters. |
 | `types`      | `array` | **Required**. YOU CAN ONLY CHOOSE 2: normal, fighting, flying, poison, ground, rock, bug, ghost, steel, fire, water, grass, electric, psychic, ice, dragon, dark, fairy. |
 | `hp`      | `number` | *Default value:* 5 |
 | `experience`      | `number` | *Default value:* 5 |
