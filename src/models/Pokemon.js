@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     img: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(400),
       defaultValue: "https://res.cloudinary.com/du7lmw4vm/image/upload/v1660016735/FANpokemon/silhouette_htizmn.png",
     },
     hp: {
