@@ -2,7 +2,7 @@
 
 Backend of a pokémon CRUD app.
 
-+ Shows 144 original pokémons from the RESTful API https://pokeapi.co/api/v2/pokemon
++ Shows 72 original pokémons from the RESTful API https://pokeapi.co/api/v2/pokemon
 + Allows you to create, edit and delete new pokémons.
 + Every pokémon can have a hall of fame, memorable pokémon moments.
 
