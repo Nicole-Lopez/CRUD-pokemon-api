@@ -13,6 +13,8 @@ Backend of a pokémon CRUD app.
     </a>
   </h3>
 </div>
+
+<!-- TABLE OF CONTENTS -->
 ## Table of Contents
 - [Built With](#built-with)
 - [Endpoints](#endpoints)
@@ -29,7 +31,6 @@ Backend of a pokémon CRUD app.
       - [POST a item in hall of fame](#create-a-item-in-hall-of-fame)
       - [DELETE a item from the hall of fame](#delete-item-from-the-hall-of-fame)
 - [Contact](#contact)
-
 
 ## Built With
 <div align="center">  
@@ -58,7 +59,9 @@ Backend of a pokémon CRUD app.
 <p>Sequelize</p>
 </span>
 </div>
+
 ## Endpoints
+
 ### Get all types of pokémons
 
 ```http
