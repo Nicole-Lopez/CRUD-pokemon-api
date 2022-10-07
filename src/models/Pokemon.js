@@ -14,36 +14,28 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     img: {
-      type: DataTypes.STRING(400),
-      defaultValue: "https://res.cloudinary.com/du7lmw4vm/image/upload/v1660016735/FANpokemon/silhouette_htizmn.png",
+      type: DataTypes.STRING(400)
     },
     hp: {
-      type: DataTypes.INTEGER,
-      defaultValue:5
+      type: DataTypes.INTEGER
     },
     attack: {
-      type: DataTypes.INTEGER,
-      defaultValue:5
+      type: DataTypes.INTEGER
     },
     defense: {
-      type: DataTypes.INTEGER,
-      defaultValue:5
+      type: DataTypes.INTEGER
     },
     speed: {
-      type: DataTypes.INTEGER,
-      defaultValue:5
+      type: DataTypes.INTEGER
     },
     height: {
-      type: DataTypes.INTEGER,
-      defaultValue:1
+      type: DataTypes.INTEGER
     },
     weight: {
-      type: DataTypes.INTEGER,
-      defaultValue:1
+      type: DataTypes.INTEGER
     },
     experience: {
-      type: DataTypes.INTEGER,
-      defaultValue:5
+      type: DataTypes.INTEGER
     },
     original: {
       type: DataTypes.BOOLEAN,
