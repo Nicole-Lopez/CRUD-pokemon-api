@@ -2,26 +2,27 @@ const axios = require('axios');
 const { Type, Pokemon, pokemon_types, HallOfFame } = require('../db.js');
 const { Op } = require("sequelize");
 
+
 const get144 = async () => { 
   try {
     let urlApiGet = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=72'    
     let getPokesApi = await axios.get(urlApiGet)
     let pok144s =getPokesApi.data.results
     
-    for (var i = 0; i < pok144s.length; i++) {
+    for (let i = 0; i < pok144s.length; i++) {
       let detail = await axios.get(pok144s[i].url)
       let pok = detail.data
 
         let [poke, created] = await Pokemon.findOrCreate({
           where: {
-            name: pok.name,
+            name: pok.name.charAt(0).toUpperCase() + pok.name.slice(1),
             img: pok.sprites.other.dream_world.front_default,
             hp: pok.stats[0].base_stat,
             attack: pok.stats[1].base_stat,
             defense: pok.stats[2].base_stat,
             speed: pok.stats[5].base_stat,
-            height: pok.height,
-            weight: pok.weight,
+            height: (pok.height/10).toFixed(1),
+            weight: (pok.weight/10).toFixed(1),
             experience: pok.base_experience,
             original:true
           }
@@ -29,11 +30,10 @@ const get144 = async () => {
 
         let typeDb = await Type.findAll({
             where:{
-                name: pok.types.map(types => types.type.name)
+                name: pok.types.map(types => types.type.name.toUpperCase())
             }
         })
         await poke.addType(typeDb)
-
     }
 
   }catch(err){

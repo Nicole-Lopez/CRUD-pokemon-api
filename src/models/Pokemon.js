@@ -34,11 +34,11 @@ module.exports = (sequelize) => {
       defaultValue:5
     },
     height: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       defaultValue:1
     },
     weight: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       defaultValue:1
     },
     experience: {
