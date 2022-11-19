@@ -6,6 +6,6 @@ const { deleteItemHall } = require('../controllers/DeleteHallItem');
 
 router.get('/:pokemonName', getItemHall);
 router.post('/:pokemonName', createItemHall);
-router.delete('/', deleteItemHall);
+router.delete('/:idItem', deleteItemHall);
 
 module.exports = router;

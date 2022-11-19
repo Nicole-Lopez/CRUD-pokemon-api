@@ -1,7 +1,7 @@
 const { Type, Pokemon, HallOfFame, pokemon_types } = require('../db.js');
 
 const deleteItemHall = async (req, res, next) => {
-    const { idItem } = req.body;    
+    const { idItem } = req.params;
 
     try {
         HallOfFame.destroy({ where: { id: idItem } });
