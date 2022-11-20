@@ -82,8 +82,8 @@ Original and created Pokémons.
 ```
 The name must be complete. It is not case sensitive, "piKaCHu" will not work.\
 **Example:**
-* /pokemons?name=pikachu
-* /pokemons?name=bulbasaur
+* /pokemons?name=Pikachu
+* /pokemons?name=Bulbasaur
 
 ### Create a pokémon
 
@@ -184,19 +184,10 @@ Original pokemons cannot be deleted, only created pokemons.\
 ### Delete item from the hall of fame
 
 ```http
-  DELETE /hall
+  DELETE /hall?id=${itemId}
 ```
-| Data name | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `idItem`      | `string` | **Required**. ID of the item to be deleted. |
-
 **Example:**
-```jsx
-{
-	"idItem": "eb8c61ff-fdaa-4a78-8ff8-994f1dd36865"
-}
-```
-
+* /hall?id=661d7861-1b74-46d9-8a91-9c6277d7793b
 
 
 ## Contact
