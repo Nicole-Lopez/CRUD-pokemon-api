@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
     },
     img: {
       type: DataTypes.STRING,
-      defaultValue: "https://res.cloudinary.com/du7lmw4vm/image/upload/v1660016735/FANpokemon/silhouette_htizmn.png",
+      defaultValue: "https://res.cloudinary.com/du7lmw4vm/image/upload/v1669690910/CRUD%20pokemon%20NO%20DELETE/silhouette_ylta04.png",
     },
     hp: {
       type: DataTypes.INTEGER,

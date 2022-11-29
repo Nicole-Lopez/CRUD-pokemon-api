@@ -3,4 +3,8 @@
     "https://github.com/timanovsky/subdir-heroku-buildpack",
     "heroku/nodejs"
   ]
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 37c76fa4d920f1d11299140763d06a1ea1678d85

@@ -8,7 +8,7 @@ Backend of a pokémon CRUD app.
 
 <div align="center">
   <h3>
-    <a href="https://pokemon-api-crud.herokuapp.com">
+    <a href="https://crud-pokemon.onrender.com">
       Deploy
     </a>
   </h3>
@@ -82,8 +82,8 @@ Original and created Pokémons.
 ```
 The name must be complete. It is not case sensitive, "piKaCHu" will not work.\
 **Example:**
-* /pokemons?name=pikachu
-* /pokemons?name=bulbasaur
+* /pokemons?name=Pikachu
+* /pokemons?name=Bulbasaur
 
 ### Create a pokémon
 
@@ -96,7 +96,7 @@ The name must be complete. It is not case sensitive, "piKaCHu" will not work.\
 | `types`      | `array` | **Required**. YOU CAN ONLY CHOOSE 2: normal, fighting, flying, poison, ground, rock, bug, ghost, steel, fire, water, grass, electric, psychic, ice, dragon, dark, fairy. |
 | `hp`      | `number` | *Default value:* 5 |
 | `experience`      | `number` | *Default value:* 5 |
-| `img`      | `string` | URL *Default value:* https://res.cloudinary.com/du7lmw4vm/image/upload/v1660016735/FANpokemon/silhouette_htizmn.png |
+| `img`      | `string` | URL *Default value:* https://res.cloudinary.com/du7lmw4vm/image/upload/v1669690910/CRUD%20pokemon%20NO%20DELETE/silhouette_ylta04.png |
 | `attack`      | `number` | *Default value:* 5 |
 | `defense`      | `number` | *Default value:* 5 |
 | `speed`      | `number` | *Default value:* 5 |
@@ -184,19 +184,10 @@ Original pokemons cannot be deleted, only created pokemons.\
 ### Delete item from the hall of fame
 
 ```http
-  DELETE /hall
+  DELETE /hall?id=${itemId}
 ```
-| Data name | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `idItem`      | `string` | **Required**. ID of the item to be deleted. |
-
 **Example:**
-```jsx
-{
-	"idItem": "eb8c61ff-fdaa-4a78-8ff8-994f1dd36865"
-}
-```
-
+* /hall?id=661d7861-1b74-46d9-8a91-9c6277d7793b
 
 
 ## Contact
