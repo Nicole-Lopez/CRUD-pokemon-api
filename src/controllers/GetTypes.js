@@ -2,24 +2,24 @@ const axios = require('axios');
 const { Type } = require('../db.js');
 
 const icons=[
-	'a/aa/Pok%C3%A9mon_Normal_Type_Icon.svg',
-	'b/be/Pok%C3%A9mon_Fighting_Type_Icon.svg',
-	'e/e0/Pok%C3%A9mon_Flying_Type_Icon.svg',
-	'c/c4/Pok%C3%A9mon_Poison_Type_Icon.svg',
-	'8/8d/Pok%C3%A9mon_Ground_Type_Icon.svg',
-	'b/bb/Pok%C3%A9mon_Rock_Type_Icon.svg',
-	'3/3c/Pok%C3%A9mon_Bug_Type_Icon.svg',
-	'a/a0/Pok%C3%A9mon_Ghost_Type_Icon.svg',
-	'3/38/Pok%C3%A9mon_Steel_Type_Icon.svg',
-	'5/56/Pok%C3%A9mon_Fire_Type_Icon.svg',
-	'0/0b/Pok%C3%A9mon_Water_Type_Icon.svg',
-	'f/f6/Pok%C3%A9mon_Grass_Type_Icon.svg',
-	'a/a9/Pok%C3%A9mon_Electric_Type_Icon.svg',
-	'a/ab/Pok%C3%A9mon_Psychic_Type_Icon.svg',
-	'8/88/Pok%C3%A9mon_Ice_Type_Icon.svg',
-	'a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg',
-	'0/09/Pok%C3%A9mon_Dark_Type_Icon.svg',
-	'0/08/Pok%C3%A9mon_Fairy_Type_Icon.svg',
+	'v1670466245/CRUD%20pokemon%20NO%20DELETE/typeIcons/normal.svg',
+	'v1670466363/CRUD%20pokemon%20NO%20DELETE/typeIcons/fighting.svg',
+	'v1670466444/CRUD%20pokemon%20NO%20DELETE/typeIcons/flying.svg',
+	'v1670466682/CRUD%20pokemon%20NO%20DELETE/typeIcons/poison.svg',
+	'v1670467132/CRUD%20pokemon%20NO%20DELETE/typeIcons/ground.svg',
+	'v1670467163/CRUD%20pokemon%20NO%20DELETE/typeIcons/rock.svg',
+	'v1670468205/CRUD%20pokemon%20NO%20DELETE/typeIcons/bug.svg',
+	'v1670469165/CRUD%20pokemon%20NO%20DELETE/typeIcons/ghost.svg',
+	'v1670467214/CRUD%20pokemon%20NO%20DELETE/typeIcons/steel.svg',
+	'v1670469201/CRUD%20pokemon%20NO%20DELETE/typeIcons/fire.svg',
+	'v1670467205/CRUD%20pokemon%20NO%20DELETE/typeIcons/water.svg',
+	'v1670469530/CRUD%20pokemon%20NO%20DELETE/typeIcons/grass.svg',
+	'v1670467238/CRUD%20pokemon%20NO%20DELETE/typeIcons/electric.svg',
+	'v1670467215/CRUD%20pokemon%20NO%20DELETE/typeIcons/psychic.svg',
+	'v1670467276/CRUD%20pokemon%20NO%20DELETE/typeIcons/ice.svg',
+	'v1670469654/CRUD%20pokemon%20NO%20DELETE/typeIcons/dragon.svg',
+	'v1670467319/CRUD%20pokemon%20NO%20DELETE/typeIcons/dark.svg',
+	'v1670467238/CRUD%20pokemon%20NO%20DELETE/typeIcons/fairy.svg',
 ]
 
 const getTypes = async (req, res, next)=>{
@@ -32,7 +32,7 @@ const getTypes = async (req, res, next)=>{
         let [type, created] = await Type.findOrCreate({
 	        where: {
 	          name: lu[i].toUpperCase(),
-	          icon: `https://upload.wikimedia.org/wikipedia/commons/${icons[i]}`
+	          icon: `https://res.cloudinary.com/du7lmw4vm/image/upload/${icons[i]}`
 	        }
         })
     }
