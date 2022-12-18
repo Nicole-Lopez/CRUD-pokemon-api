@@ -101,7 +101,7 @@ const getPo = async (req, res, next)=>{
   try {
     if (name) {
       let rta= await getbyName(name)
-      return (rta == 'This pokemon was not found') ?res.status(404).json({ msg: rta}): res.status(200).json(rta)
+      return (rta == 'This pokemon was not found') ?res.status(404).send(rta): res.status(200).send(rta)
       
     } else {
       res.status(200).send(await getAllPokemons())

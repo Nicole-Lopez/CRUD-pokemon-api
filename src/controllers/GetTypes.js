@@ -38,7 +38,7 @@ const getTypes = async (req, res, next)=>{
     }
 
 	let total = await Type.findAll();
-	res.send(total)	
+	res.status(200).send(total)	
 
 	} catch (err) {
       next(err)

@@ -5,7 +5,7 @@ const deleteItemHall = async (req, res, next) => {
 
     try {
         HallOfFame.destroy({ where: { id: id } });
-    	res.status(201).send('Picture removed successfully');
+    	res.status(200).send('Picture removed successfully');
     } catch (error) {
         next(error)
     };

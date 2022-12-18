@@ -15,11 +15,11 @@ const createPoke = async (req, res, next) => {
         speed,
     } = req.body
 
-    if (!name || name.length>10 || !types || !types[0] || types.length >2) return res.status(404).send('Invalid name or invalid types')
+    if (!name || name.length>10 || !types || !types[0] || types.length >2) return res.status(406).send('Invalid name or invalid types')
 
 	const pokExist = await Pokemon.findOne({ where: { name: name } });
 
-	if (pokExist) return res.status(404).send('There is already a pokemon with that name')
+	if (pokExist) return res.status(406).send('There is already a pokemon with that name')
 	else {
 	  	console.log('Not found!');
 	    let pokeCreated =await Pokemon.create({
@@ -39,7 +39,7 @@ const createPoke = async (req, res, next) => {
 		        name: types
 		    }
 		})
-		return (pokeCreated.addType(typeDb))?res.status(200).send('Successful creation'): res.status(404).send('Failed creation')
+		return (pokeCreated.addType(typeDb))?res.status(201).send('Successful creation'): res.status(500).send('Failed creation')
 	}
 }
 

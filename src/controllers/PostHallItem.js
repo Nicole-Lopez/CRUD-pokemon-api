@@ -15,8 +15,7 @@ const createItemHall = async (req, res, next) => {
         })
 
     	await poki.addHallOfFame(createdItem);
-    	res.status(201).json(createdItem);
-
+    	res.status(201).send('Item created successfully');
     } catch (error) {
         next(error)
     };

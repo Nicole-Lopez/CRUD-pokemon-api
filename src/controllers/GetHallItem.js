@@ -13,10 +13,10 @@ const getItemHall = async (req, res, next) => {
     try {
         let items = await getItem(pokemonName)
 
-        if (items[0]!==undefined) {
-            res.status(201).json(items)
+        if (items[0]) {
+            res.status(200).json(items)
         } else {       
-            res.status(404).send('This pokemon has no pictures in the hall of fame')
+            res.status(204).send('This pokemon has no pictures in the hall of fame')
         }
 
     } catch (error) {

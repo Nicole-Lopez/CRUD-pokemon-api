@@ -34,10 +34,10 @@ const updatePoke = async (req, res, next) => {
 
       let typesFromDb = await Type.findAll({ where: { name: types } });
       await updatedPokemon.setTypes(typesFromDb);
-      res.status(201).json(updatedPokemon);
+      res.status(200).json(updatedPokemon);
 
     } else {
-      res.status(400).send("This pokemon is original, you can't edit it");
+      res.status(406).send("This pokemon is original, you can't edit it");
     }
   } catch (error) {
     next(error);
